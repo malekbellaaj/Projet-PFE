@@ -1,0 +1,26 @@
+📌 Résumé de ce README spécifique
+Il s’agit d’un template React appelé Landy, conçu pour créer facilement une landing page. Voici ce qu’il inclut :
+
+✅ Technologies utilisées :
+
+React avec TypeScript
+
+Ant Design (antd)
+
+Styled-components
+
+i18next (pour les langues)
+
+react-awesome-reveal (animations)
+
+✅ Fonctions :
+
+Pages routées automatiquement
+
+Contenu modifiable via des fichiers JSON
+
+Support multi-langues
+
+Contact form sans librairie externe
+
+Compatible avec Google Lighthouse (perf/SEO/accessibilité)
