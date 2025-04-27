@@ -5,14 +5,17 @@ import Header from "../components/Header";
 import routes from "./config";
 import { Styles } from "../styles/styles";
 import UserRole from "../users/UserRole";
+import mainFormulaire from "../users/authentification/mainForm/MainFormulaire";
+
 
 const Router = () => {
   return (
     <Suspense fallback={null}>
       <Styles />
       <Switch>
-        {/* router de users sans Header/Footer */}
+        {/* router sans Header/Footer */}
         <Route exact path="/userrole" component={UserRole} />
+        <Route exact path="/mainFormulaire" component={mainFormulaire} />
 
         {/* router principale */}
         <Route path="/">

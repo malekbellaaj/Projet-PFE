@@ -1,3 +1,4 @@
+/* Styles par défaut */
 .user-role-page {
   background-color: #a3d6e0;
   background-image: url("./assets/books.png");
@@ -31,7 +32,7 @@
   border-radius: 20px;
   padding: 30px;
   width: 280px;
-  height: 380px; /* Hauteur fixe pour toutes les cartes */
+  height: 310px; /* Hauteur fixe pour toutes les cartes */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
@@ -49,6 +50,91 @@
   position: absolute;
   top: 1px; /* Distance du haut */
   left: 40px; /* Distance de la gauche */
-  width: 150px; /* Taille du logo (modifiable) */
+  width: 170px; /* Taille du logo (modifiable) */
   height: auto; /* Garde les proportions */
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .role-cards-container {
+    gap: 30px;
+  }
+
+  .role-card {
+    width: 250px;
+    height: auto;
+    padding: 20px;
+  }
+
+  .role-image {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 992px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .role-cards-container {
+    gap: 20px;
+  }
+
+  .role-card {
+    width: 220px;
+    padding: 15px;
+  }
+
+  .logo {
+    width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-role-page {
+    padding: 20px 10px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-top: 50px;
+  }
+
+  .role-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .role-card {
+    width: 90%;
+    max-width: 300px;
+    padding: 15px;
+  }
+
+  .role-image {
+    max-width: 120px;
+  }
+
+  .logo {
+    left: 20px;
+    width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .role-card {
+    padding: 10px;
+  }
+
+  .role-image {
+    max-width: 100px;
+  }
+
+  .logo {
+    width: 80px;
+  }
 }

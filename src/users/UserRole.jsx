@@ -2,6 +2,7 @@ import React from "react";
 import "./UserRole.css";
 import logo from "./assets/altus_logo_SB.png";
 import { Button } from "../common/Button";
+import { useHistory } from "react-router-dom"; // pour importez useHistory
 
 const roles = [
   {
@@ -11,7 +12,7 @@ const roles = [
     btnImage: require("./assets/btn1.png"),
   },
   {
-    title: "ADMINISTRATEUR",
+    title: "ADMINISTRATEUR  .",
     image: require("./assets/admin.png"),
     alt: "Illustration responsable administratif",
     btnImage: require("./assets/btn2.png"),
@@ -25,6 +26,15 @@ const roles = [
 ];
 
 export default function UserRoleSelectionPage() {
+  const history = useHistory(); // Initialisez useHistory
+
+  // Fonction pour gérer le clic sur le bouton
+  const handleClick = (roleTitle) => {
+    if (roleTitle === "ENSEIGNANT") {
+      history.push("/mainFormumaire");
+    }
+    // Vous pouvez ajouter d'autres redirections ici pour les autres rôles
+  };
   return (
     <div className="user-role-page">
       <img src={logo} alt="Logo" className="logo" />
@@ -37,7 +47,7 @@ export default function UserRoleSelectionPage() {
             </div>
             <div className="role-card-button">
               <Button
-                // onClick={handleClick}
+                onClick={() => handleClick(role.title)}
                 imageSrc={role.btnImage}
               >
                 {role.title}
