@@ -1,3 +1,112 @@
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+
+// // Définir une interface pour l'objet User
+// interface User {
+//   _id: string;
+//   name: string;
+//   email: string;
+// }
+
+// function App() {
+//   const [helloMessage, setHelloMessage] = useState<string>("");
+//   const [testMessage, setTestMessage] = useState<string>("");
+//   // Typer users comme un tableau d'objets User
+//   const [users, setUsers] = useState<User[]>([]);
+//   const [newUser, setNewUser] = useState<{ name: string; email: string }>({
+//     name: "",
+//     email: "",
+//   });
+
+//   // GET /api/hello
+//   useEffect(() => {
+//     axios
+//       .get<{ message: string }>("/api/hello")
+//       .then((res) => setHelloMessage(res.data.message))
+//       .catch((err) => console.error("Erreur :", err));
+//   }, []);
+
+//   // GET /api/test
+//   useEffect(() => {
+//     axios
+//       .get<{ message: string }>("/api/test")
+//       .then((res) => setTestMessage(res.data.message))
+//       .catch((err) => console.error("Erreur :", err));
+//   }, []);
+
+//   // GET /api/users
+//   useEffect(() => {
+//     axios
+//       .get<User[]>("/api/users")
+//       .then((res) => setUsers(res.data))
+//       .catch((err) => console.error("Erreur :", err));
+//   }, []);
+
+//   // POST /api/users
+//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+//     e.preventDefault();
+//     try {
+//       const res = await axios.post<{ message: string; user: User }>(
+//         "/api/users",
+//         newUser
+//       );
+//       console.log("Utilisateur créé :", res.data);
+//       setUsers([...users, res.data.user]);
+//       setNewUser({ name: "", email: "" });
+//     } catch (err) {
+//       console.error("Erreur lors de la création :", err);
+//     }
+//   };
+
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h1>Test Backend</h1>
+//       <h2>GET /api/hello</h2>
+//       <p>{helloMessage}</p>
+
+//       <h2>GET /api/test</h2>
+//       <p>{testMessage}</p>
+
+//       <h2>Liste des utilisateurs (GET /api/users)</h2>
+//       <ul>
+//         {users.map((user) => (
+//           <li key={user._id}>
+//             {user.name} - {user.email}
+//           </li>
+//         ))}
+//       </ul>
+
+//       <h2>Créer un utilisateur (POST /api/users)</h2>
+//       <form onSubmit={handleSubmit}>
+//         <input
+//           type="text"
+//           placeholder="Nom"
+//           value={newUser.name}
+//           onChange={(e) =>
+//             setNewUser({ ...newUser, name: e.target.value })
+//           }
+//         />
+//         <input
+//           type="email"
+//           placeholder="Email"
+//           value={newUser.email}
+//           onChange={(e) =>
+//             setNewUser({ ...newUser, email: e.target.value })
+//           }
+//         />
+//         <button type="submit">Ajouter</button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
 import { lazy } from "react";
 import IntroContent from "../../content/IntroContent.json";
 import AperçuContent from "../../content/AperçuContent.json";

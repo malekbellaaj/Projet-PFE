@@ -1,3 +1,12 @@
+pour git : 
+
+git status      s'il ya nouvelle changement 
+git add .
+git commit -m "nom-du_changement"
+git push
+
+
+
 📌 Résumé de ce README spécifique
 Il s’agit d’un template React appelé Landy, conçu pour créer facilement une landing page. Voici ce qu’il inclut :
 
