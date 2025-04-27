@@ -5,7 +5,8 @@ import Header from "../components/Header";
 import routes from "./config";
 import { Styles } from "../styles/styles";
 import UserRole from "../users/UserRole";
-import mainFormulaire from "../users/authentification/mainForm/MainFormulaire";
+import AllAboutForm from "../users/authentification/teacherForm/AllAboutForm";
+import MainForm from "../users/authentification/studentForm/MainForm";
 
 
 const Router = () => {
@@ -15,7 +16,8 @@ const Router = () => {
       <Switch>
         {/* router sans Header/Footer */}
         <Route exact path="/userrole" component={UserRole} />
-        <Route exact path="/mainFormulaire" component={mainFormulaire} />
+        <Route exact path="/allaboutform" component={AllAboutForm} />
+        <Route exact path="/mainform" component={MainForm} />
 
         {/* router principale */}
         <Route path="/">

@@ -31,9 +31,11 @@ export default function UserRoleSelectionPage() {
   // Fonction pour gérer le clic sur le bouton
   const handleClick = (roleTitle) => {
     if (roleTitle === "ENSEIGNANT") {
-      history.push("/mainFormumaire");
+      history.push("/allaboutform");
     }
-    // Vous pouvez ajouter d'autres redirections ici pour les autres rôles
+    if (roleTitle === "PARENT") {
+      history.push("/mainform");
+    }
   };
   return (
     <div className="user-role-page">

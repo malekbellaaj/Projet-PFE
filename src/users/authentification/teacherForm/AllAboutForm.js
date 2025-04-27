@@ -12,6 +12,7 @@ import {
   CardContent,
   Stack,
   CssBaseline,
+  Alert,
 } from "@mui/material";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
@@ -21,6 +22,7 @@ import InfoMobile from "./components/InfoMobile";
 import Review from "./components/Review";
 import LeftFormLogo from "./components/LeftFormLogoo";
 import AppTheme from "../shared-theme/AppTheme";
+import axios from "axios";
 
 const steps = ["Informations de l’enseignant", "Vérification"];
 
@@ -35,8 +37,9 @@ function getStepContent(step, formValues) {
   }
 }
 
-export default function MainFormulaire(props) {
-  const [activeStep, setActiveStep] = React.useState(0); //activeStep : variable d’état (React state) qui contrôle quelle étape est affichée
+export default function AllAboutForm(props) {
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [errorMessage, setErrorMessage] = React.useState("");
   const methods = useForm({
     mode: "onTouched",
     defaultValues: {
@@ -46,16 +49,53 @@ export default function MainFormulaire(props) {
       email: "",
       password: "",
       confirmPassword: "",
+      cv: null,
       acceptTerms: false,
     },
   });
 
   const handleNext = async () => {
+    setErrorMessage(""); // Réinitialiser les erreurs
     if (activeStep === 0) {
       const valid = await methods.trigger();
       if (!valid) return;
     }
-    setActiveStep((prev) => prev + 1);
+
+    if (activeStep === steps.length - 1) {
+      const formData = new FormData();
+      const values = methods.getValues();
+
+      // Ajouter les champs au FormData
+      formData.append("teacherName", values.teacherName);
+      formData.append("matricule", values.matricule);
+      formData.append("phone", values.phone);
+      formData.append("email", values.email);
+      formData.append("password", values.password);
+      formData.append("acceptTerms", values.acceptTerms.toString());
+      if (values.cv) {
+        formData.append("cv", values.cv);
+      }
+
+      try {
+        const response = await axios.post("/api/register-teacher", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        if (response.status === 201) {
+          console.log("Inscription réussie :", response.data);
+          setActiveStep(activeStep + 1); // Passe à l'écran de confirmation
+        }
+      } catch (error) {
+        const message =
+          error.response?.data?.message || "Erreur lors de l'inscription.";
+        setErrorMessage(message);
+        console.error("Erreur réseau ou serveur :", error);
+      }
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => setActiveStep((prev) => prev - 1);
@@ -63,10 +103,9 @@ export default function MainFormulaire(props) {
   return (
     <AppTheme {...props}>
       <CssBaseline />
-      {/* Applique le thème personnalisé et réinitialise les styles CSS */}
       <FormProvider {...methods}>
         <Grid
-          container //Grille Principale
+          container
           sx={{
             height: {
               xs: "100%",
@@ -75,9 +114,8 @@ export default function MainFormulaire(props) {
             mt: { xs: 4, sm: 0 },
           }}
         >
-          {/* Colonne Gauche (Desktop) */}
           <Grid size={{ xs: 12, sm: 5, lg: 4 }} sx={leftColumnStyle}>
-            <LeftFormLogo /> {/* appel du logo */}
+            <LeftFormLogo />
             <Box
               sx={{
                 display: "flex",
@@ -91,9 +129,7 @@ export default function MainFormulaire(props) {
             </Box>
           </Grid>
 
-          {/* Colonne Droite (Contenu Principal) */}
           <Grid size={{ sm: 12, md: 7, lg: 8 }} sx={rightColumnStyle}>
-            {/* Stepper Desktop */}
             <Box
               sx={{
                 display: "flex",
@@ -112,7 +148,7 @@ export default function MainFormulaire(props) {
                   flexGrow: 1,
                 }}
               >
-                <Stepper //Affiche la progression en étapes (version desktop)
+                <Stepper
                   activeStep={activeStep}
                   sx={{ width: "100%", height: 40 }}
                 >
@@ -125,7 +161,6 @@ export default function MainFormulaire(props) {
               </Box>
             </Box>
 
-            {/* Mobile Card Info : Version mobile du panneau d'information*/}
             <Card sx={{ display: { xs: "flex", md: "none" }, width: "80%" }}>
               <CardContent
                 sx={{
@@ -140,7 +175,6 @@ export default function MainFormulaire(props) {
               </CardContent>
             </Card>
 
-            {/* Form Content */}
             <Box
               sx={{
                 display: "flex",
@@ -152,7 +186,6 @@ export default function MainFormulaire(props) {
                 gap: { xs: 5, md: "none" },
               }}
             >
-              {/* Stepper Mobile */}
               <Stepper
                 alternativeLabel
                 activeStep={activeStep}
@@ -165,7 +198,6 @@ export default function MainFormulaire(props) {
                 ))}
               </Stepper>
 
-              {/* Contenu conditionnel */}
               {activeStep === steps.length ? (
                 <Stack spacing={2} useFlexGap>
                   <Typography variant="h1">✅</Typography>
@@ -188,6 +220,11 @@ export default function MainFormulaire(props) {
                 </Stack>
               ) : (
                 <>
+                  {errorMessage && (
+                    <Alert severity="error" sx={{ mb: 2 }}>
+                      {errorMessage}
+                    </Alert>
+                  )}
                   {getStepContent(activeStep, methods.getValues())}
                   <Box sx={actionBoxStyle(activeStep)}>
                     {activeStep !== 0 && (
@@ -230,17 +267,16 @@ export default function MainFormulaire(props) {
   );
 }
 
-//style du partie left
 const leftColumnStyle = {
-  display: { xs: "none", md: "flex" }, // caché sur mobile
+  display: { xs: "none", md: "flex" },
   flexDirection: "column",
   backgroundColor: "background.paper",
-  borderRight: { sm: "none", md: "2px solid" }, //bordure entre les deux parties
+  borderRight: { sm: "none", md: "2px solid" },
   borderColor: { sm: "none", md: "divider" },
   alignItems: "center",
-  pt: 5, //espacement en haut
-  px: 5, //espacement droite et gauche
-  gap: 4, // espacement entre logo et ecriture
+  pt: 5,
+  px: 5,
+  gap: 4,
 };
 
 const rightColumnStyle = {
@@ -249,7 +285,7 @@ const rightColumnStyle = {
   maxWidth: "100%",
   width: "100%",
   backgroundColor: { xs: "transparent", sm: "background.default" },
-  alignItems: "center",
+  alignItems: "center",   
   pt: { xs: 0, sm: 10 },
   px: { xs: 2, sm: 10 },
   gap: { xs: 3, md: 5 },
