@@ -12,7 +12,7 @@ function AppTheme(props) {
           palette: {
             mode: "light", 
             primary: {
-              main: "#f78f8f",
+              main: "#b47cb2",
             },
             background: {
               default: "#b2e6eb",
@@ -61,7 +61,7 @@ function AppTheme(props) {
               styleOverrides: {
                 root: {
                   borderRadius: 20,
-                  backgroundColor: "#f78f8f",
+                  backgroundColor: "#b47cb2",
                   color: "white",
                   fontWeight: 600,
                   padding: "10px 20px",
@@ -71,7 +71,7 @@ function AppTheme(props) {
                 },
               },
             },
-            ...themeComponents, // garde tes personnalisations existantes
+            ...themeComponents,
           },
         });
   }, [disableCustomTheme, themeComponents]);

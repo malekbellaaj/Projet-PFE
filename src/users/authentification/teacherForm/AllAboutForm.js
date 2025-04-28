@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import {
   Grid,
   Box,
-  Button,
+  // Button,
   Stepper,
   Step,
   StepLabel,
@@ -14,15 +14,19 @@ import {
   CssBaseline,
   Alert,
 } from "@mui/material";
-import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+import { Button } from "../../../common/Button";
 import AddressForm from "./components/AddressForm";
 import Info from "./components/Info";
 import InfoMobile from "./components/InfoMobile";
 import Review from "./components/Review";
-import LeftFormLogo from "./components/LeftFormLogoo";
+import TeacherFormLogos from "./components/TeacherFormLogos";
 import AppTheme from "../shared-theme/AppTheme";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+
+const btnImage1 = require("../../assets/btnForm1.png");
+const btnImage2 = require("../../assets/btnForm2.png");
+const btnImage3 = require("../../assets/btnForm3.png");
 
 const steps = ["Informations de l’enseignant", "Vérification"];
 
@@ -38,6 +42,7 @@ function getStepContent(step, formValues) {
 }
 
 export default function AllAboutForm(props) {
+  const navigate = useHistory();
   const [activeStep, setActiveStep] = React.useState(0);
   const [errorMessage, setErrorMessage] = React.useState("");
   const methods = useForm({
@@ -115,7 +120,7 @@ export default function AllAboutForm(props) {
           }}
         >
           <Grid size={{ xs: 12, sm: 5, lg: 4 }} sx={leftColumnStyle}>
-            <LeftFormLogo />
+            <TeacherFormLogos />
             <Box
               sx={{
                 display: "flex",
@@ -209,7 +214,8 @@ export default function AllAboutForm(props) {
                     de confirmation vous sera envoyé bientôt.
                   </Typography>
                   <Button
-                    variant="contained"
+                    onClick={() => navigate.push("/")}
+                    imageSrc={btnImage2}
                     sx={{
                       alignSelf: "start",
                       width: { xs: "100%", sm: "auto" },
@@ -229,29 +235,17 @@ export default function AllAboutForm(props) {
                   <Box sx={actionBoxStyle(activeStep)}>
                     {activeStep !== 0 && (
                       <Button
-                        startIcon={<ChevronLeftRoundedIcon />}
                         onClick={handleBack}
-                        variant="text"
+                        imageSrc={btnImage3}
                         sx={{ display: { xs: "none", sm: "flex" } }}
                       >
                         Précédent
                       </Button>
                     )}
-                    {activeStep !== 0 && (
-                      <Button
-                        startIcon={<ChevronLeftRoundedIcon />}
-                        onClick={handleBack}
-                        variant="outlined"
-                        fullWidth
-                        sx={{ display: { xs: "flex", sm: "none" } }}
-                      >
-                        Précédent
-                      </Button>
-                    )}
+
                     <Button
-                      variant="contained"
-                      endIcon={<ChevronRightRoundedIcon />}
                       onClick={handleNext}
+                      imageSrc={btnImage1}
                       sx={{ width: { xs: "100%", sm: "fit-content" } }}
                     >
                       {activeStep === steps.length - 1 ? "Valider" : "Suivant"}
@@ -285,7 +279,7 @@ const rightColumnStyle = {
   maxWidth: "100%",
   width: "100%",
   backgroundColor: { xs: "transparent", sm: "background.default" },
-  alignItems: "center",   
+  alignItems: "center",
   pt: { xs: 0, sm: 10 },
   px: { xs: 2, sm: 10 },
   gap: { xs: 3, md: 5 },
