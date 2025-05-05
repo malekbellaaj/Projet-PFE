@@ -33,3 +33,16 @@ Support multi-langues
 Contact form sans librairie externe
 
 Compatible avec Google Lighthouse (perf/SEO/accessibilité)
+
+
+
+
+
+
+
+
+
+
+
+
+

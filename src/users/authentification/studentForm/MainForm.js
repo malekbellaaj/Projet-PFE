@@ -14,8 +14,6 @@ import {
   Alert,
 } from "@mui/material";
 import { Button } from "../../../common/Button";
-import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import AddressForm from "./components/AddressForm";
 import Info from "./components/Info";
 import InfoMobile from "./components/InfoMobile";
@@ -59,6 +57,8 @@ export default function MainForm(props) {
       studentSituation: "",
       birthDate: "",
       schoolLevel: "",
+      password: "",
+      confirmPassword: "",
       acceptTerms: false,
     },
   });
@@ -82,6 +82,7 @@ export default function MainForm(props) {
       formData.append("studentSituation", values.studentSituation);
       formData.append("birthDate", values.birthDate);
       formData.append("schoolLevel", values.schoolLevel);
+      formData.append("password", values.password);
       formData.append("acceptTerms", values.acceptTerms.toString());
 
       try {
@@ -242,8 +243,7 @@ export default function MainForm(props) {
                         imageSrc={btnImage3}
                         sx={{ width: "100%", display: { xs: "flex", sm: "none" } }}
                       >
-                        <ChevronLeftRoundedIcon sx={{ mr: 1 }} />
-                        Précédent
+                      {"< Précédent"}
                       </Button>
                     )}
                     <Button
@@ -251,8 +251,7 @@ export default function MainForm(props) {
                       imageSrc={btnImage1}
                       sx={{ width: { xs: "100%", sm: "fit-content" } }}
                     >
-                      {activeStep === steps.length - 1 ? "Valider" : "Suivant"}
-                      <ChevronRightRoundedIcon sx={{ ml: 1 }} />
+                      {activeStep === steps.length - 1 ? "Valider >" : "Suivant >"}
                     </Button>
                   </Box>
                 </>

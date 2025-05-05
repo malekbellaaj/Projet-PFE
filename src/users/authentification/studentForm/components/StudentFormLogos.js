@@ -1,5 +1,5 @@
-import logo1 from "./../../shared-theme/assets/FontLeft.png";
-import logo2 from "./../../shared-theme/assets/FontRight.png";
+import logo1 from "./../../shared-theme/assets/enfant1.png";
+import logo2 from "./../../shared-theme/assets/enfant2.png";
 import { Box } from "@mui/material";
 
 export default function StudentFormLogos() {
@@ -8,7 +8,7 @@ export default function StudentFormLogos() {
       sx={{
         display: "flex",
         flexDirection: "row",
-        gap: 1, // Espace entre les images
+        gap: 7, // Espace entre les images
         alignItems: "center", // Alignement vertical
         justifyContent: "center", // Centrer horizontalement
       }}
@@ -17,13 +17,13 @@ export default function StudentFormLogos() {
         component="img"
         src={logo1}
         alt="Logo 1"
-        sx={{ height: 200, width: 180 }}
+        sx={{ height: 200, width: 100 }}
       />
       <Box
         component="img"
         src={logo2}
         alt="Logo 2"
-        sx={{ height: 200, width: 170 }}
+        sx={{ height: 200, width: 100 }}
       />
     </Box>
   );

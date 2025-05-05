@@ -1,15 +1,15 @@
 {
-  "title": "Light, fast & responsive",
-  "text": "This template is ready to use, so you don't need to change anything at a component level, unless you want to customize the default styling.",
+  "title": "Une plateforme inclusive, ludique et intuitive",
+  "text": "Notre plateforme a été pensée pour offrir une expérience d’apprentissage adaptée à tous les enfants, quels que soient leurs besoins spécifiques.",
   "section": [
     {
-      "title": "Why Antd?",
-      "content": "Ant Design is a React UI library that has a lot of easy-to-use components for building elegant UI.",
+      "title": "Accessibilité pour tous",
+      "content": "Des outils adaptés pour les enfants dyslexiques, des vidéos avec langue des signes, un lecteur audio pour les enfants aveugles, et des interfaces simplifiées pour les enfants hyperactifs.",
       "icon": "notes.svg"
     },
     {
-      "title": "Why styled-components?",
-      "content": "Styled Components gives you total control over your components.",
+      "title": "Suivi personnalisé",
+      "content": "Un tableau de bord pour les enseignants, permettant de suivre les progrès de chaque enfant et d’adapter les contenus à son rythme.",
       "icon": "notes.svg"
     }
   ]

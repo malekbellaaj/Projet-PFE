@@ -4,6 +4,8 @@ import { withTranslation, TFunction } from "react-i18next";
 import Container from "../../common/Container";
 import { SvgIcon } from "../../common/SvgIcon";
 import { Button } from "../../common/Button";
+import { useHistory } from "react-router-dom";
+
 import {
   HeaderSection,
   LogoContainer,
@@ -24,6 +26,8 @@ const Header = ({ t }: { t: TFunction }) => {
   };
 
   const MenuItem = () => {
+    const history = useHistory();
+  
     const scrollTo = (id: string) => {
       const element = document.getElementById(id) as HTMLDivElement;
       element.scrollIntoView({
@@ -31,25 +35,28 @@ const Header = ({ t }: { t: TFunction }) => {
       });
       setVisibility(false);
     };
+  
+    const goToUserPage = () => {
+      history.push("/userrole"); // <-- ici la redirection
+      setVisibility(false);
+    };
+  
     return (
       <>
         <CustomNavLinkSmall onClick={() => scrollTo("apercu")}>
           <Span>{t("A propos")}</Span>
         </CustomNavLinkSmall>
-
+  
         <CustomNavLinkSmall onClick={() => scrollTo("mission")}>
           <Span>{t("Nos Profs")}</Span>
         </CustomNavLinkSmall>
-
-        <CustomNavLinkSmall
-          style={{ width: "180px" }}
-          onClick={() => scrollTo("product")}
-        >
+  
+        <CustomNavLinkSmall style={{ width: "180px" }} onClick={goToUserPage}>
           <Span>
             <Button>{t("Inscription")}</Button>
           </Span>
         </CustomNavLinkSmall>
-
+  
         <CustomNavLinkSmall
           style={{ width: "180px" }}
           onClick={() => scrollTo("contact")}
@@ -61,6 +68,7 @@ const Header = ({ t }: { t: TFunction }) => {
       </>
     );
   };
+  
 
   return (
     <HeaderSection>
