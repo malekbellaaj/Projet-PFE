@@ -10,7 +10,7 @@ function AppTheme(props) {
       ? {}
       : createTheme({
           palette: {
-            mode: "light", 
+            mode: "light",
             primary: {
               main: "#b47cb2",
             },
@@ -81,7 +81,7 @@ function AppTheme(props) {
   }
 
   return (
-    <ThemeProvider theme={theme} disableTransitionOnChange>
+    <ThemeProvider theme={theme}>
       {children}
     </ThemeProvider>
   );
@@ -94,9 +94,6 @@ AppTheme.propTypes = {
 };
 
 export default AppTheme;
-
-
-
 
 
 

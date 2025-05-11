@@ -593,6 +593,7 @@ export default function AddressForm() {
               <MenuItem value="1">1ère année</MenuItem>
               <MenuItem value="2">2ème année</MenuItem>
               <MenuItem value="3">3ème année</MenuItem>
+              <MenuItem value="4">4ème année</MenuItem>
               <MenuItem value="5">5ème année</MenuItem>
               <MenuItem value="6">6ème année</MenuItem>
             </TextField>
