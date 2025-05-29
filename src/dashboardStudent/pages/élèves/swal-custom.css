@@ -1,0 +1,81 @@
+/* .swal2-popup.swal-custom-popup {
+    width: 800px !important;
+    padding: 20px !important;
+  }
+  
+  .swal2-title.swal-custom-title {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .swal2-html-container.swal-custom-html {
+    padding: 0 16px !important;
+  }
+  
+  .swal-custom-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .swal-custom-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .swal-custom-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .swal-custom-field label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .swal2-input.swal-custom-input {
+    width: 100% !important;
+    font-size: 14px !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+  
+  .swal2-confirm.swal-custom-button,
+  .swal2-cancel.swal-custom-button {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+  } */
+.swal2-popup.swal-custom-popup {
+  width: 550px !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+}
+
+.swal2-title.swal-custom-title {
+  font-size: 18px !important;
+  margin-bottom: 8px !important;
+  font-weight: 500 !important;
+}
+
+.swal2-html-container {
+  padding: 0 !important;
+}
+
+.swal2-confirm.swal-custom-button,
+.swal2-cancel.swal-custom-button {
+  font-size: 14px !important;
+  padding: 8px 16px !important;
+  border-radius: 4px !important;
+}
+
+.swal2-confirm.swal-custom-button {
+  background-color: #1976d2 !important;
+}
+
+.swal2-cancel.swal-custom-button {
+  background-color: #d32f2f !important;
+}

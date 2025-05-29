@@ -34,7 +34,7 @@ export default function UserRoleSelectionPage() {
     } else if (roleTitle === "ADMINISTRATEUR .") {
       history.push({ pathname: "/login", state: { role: "admin" } });
     } else if (roleTitle === "ÉLÈVE") {
-      history.push({ pathname: "/mainform", state: { role: "student" } });
+      history.push({ pathname: "/loginFace", state: { role: "student" } });
     }
   };
 

@@ -191,7 +191,7 @@ export default function FaceDetectionForm({ onFaceCapture }) {
         await faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
         setModelsLoaded(true);
       } catch (error) {
-        console.error('Erreur lors du chargement des modèles :', error);
+        console.error(' ❌ Erreur lors du chargement des modèles :', error);
       }
     };
 

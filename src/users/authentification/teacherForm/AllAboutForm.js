@@ -96,9 +96,9 @@ export default function AllAboutForm(props) {
         }
       } catch (error) {
         const message =
-          error.response?.data?.message || "Erreur lors de l'inscription.";
+          error.response?.data?.message || " ❌ Erreur lors de l'inscription.";
         setErrorMessage(message);
-        console.error("Erreur réseau ou serveur :", error);
+        console.error(" ❌ Erreur réseau ou serveur :", error);
       }
     } else {
       setActiveStep(activeStep + 1);

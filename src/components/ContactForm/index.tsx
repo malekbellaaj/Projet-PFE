@@ -72,7 +72,7 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
     const newErrors = validate(formValues);
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
-      setErrorMessage(t("Veuillez corriger les erreurs dans le formulaire."));
+      setErrorMessage(t("❌ Veuillez corriger les erreurs dans le formulaire."));
       return;
     }
 
@@ -88,7 +88,7 @@ const Contact = ({ title, content, id, t }: ContactProps) => {
       setErrors({});
     } catch (err: any) {
       setErrorMessage(
-        err.response?.data?.error || t("Erreur lors de l'envoi du message.")
+        err.response?.data?.error || t("❌ Erreur lors de l'envoi du message.")
       );
       setSuccessMessage("");
     }
