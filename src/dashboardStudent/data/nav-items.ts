@@ -12,33 +12,33 @@ export interface NavItem {
 const navItems: NavItem[] = [
   {
     title: "Accueil",
-    path: "/dashboard-admin",
+    path: "/dashboard-student",
     icon: "ion:home-sharp",
     active: true,
     collapsible: false,
   },
   {
     title: "Utilisateurs",
-    path: "/dashboard-admin/utilisateurs",
+    path: "/dashboard-student/utilisateurs",
     icon: "tabler:users",
     active: false,
     collapsible: true,
     sublist: [
       {
         title: "Enseignants",
-        path: "/dashboard-admin/utilisateurs/enseignants",
+        path: "/dashboard-student/utilisateurs/enseignants",
         active: false,
         collapsible: false,
       },
       {
         title: "Élèves",
-        path: "/dashboard-admin/utilisateurs/eleves",
+        path: "/dashboard-student/utilisateurs/eleves",
         active: false,
         collapsible: false,
       },
       {
-        title: "Administrateurs",
-        path: "/dashboard-admin/utilisateurs/admins",
+        title: "administrateurs",
+        path: "/dashboard-student/utilisateurs/students",
         active: false,
         collapsible: false,
       },
@@ -46,7 +46,7 @@ const navItems: NavItem[] = [
   },
   {
     title: "Réclamations",
-    path: "/dashboard-admin/reclamations",
+    path: "/dashboard-student/reclamations",
     icon: "tabler:alert-circle",
     active: false,
     collapsible: false,
