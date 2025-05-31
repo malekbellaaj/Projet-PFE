@@ -1,15 +1,18 @@
-// ce footer est maintenant à supprimer 
 import { Stack } from '@mui/material';
 
 const Footer = () => {
   return (
     <Stack
       direction="row"
-      justifyContent={{ xs: 'center', md: 'flex-end' }}
-      ml={{ xs: 3.75, lg: 34.75 }}
-      mr={3.75}
-      my={3.75}
-    ></Stack>
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        py: 2,
+        backgroundColor: '#fff4ea',
+      }}
+    >
+      <span style={{ color: '#888' }}>© 2025 Altus - Tous droits réservés</span>
+    </Stack>
   );
 };
 

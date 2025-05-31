@@ -1,4 +1,3 @@
-
 import { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -11,13 +10,18 @@ import MainForm from "../users/authentification/studentForm/MainForm";
 import UserRoleConn from "../users/UserRoleConn";
 import Login from "../users/Connection/NormalConnection/Login";
 import ForgotPassword from "../users/Connection/NormalConnection/ForgotPassword";
+// dashboard admin :
 import PrivateRoute from "../components/PrivateRoute";
 import DashboardAdminWrapper from "../dashboardAdmin/DashboardAdminWrapper";
 import AppRoutes from "../dashboardAdmin/routes/router";
 import MainLayout from "../dashboardAdmin/layouts/main-layout";
-import test from "../dashboardStudent/test";
+// face Connection :
 import LoginFace from "../users/Connection/FaceConnection/login/Login";
 import ForgotPasswordFace from "../users/Connection/FaceConnection/forget passeword/ForgotPassword";
+// dashboard élève :
+import DashboardStudentWrapper from "../dashboardStudent/DashboardStudentWrapper";
+import StudentRoutes from "../dashboardStudent/routes/router";
+import StudentLayout from "../dashboardStudent/layouts/main-layout";
 
 const Router = () => {
   return (
@@ -32,12 +36,12 @@ const Router = () => {
         <Route path="/login" component={Login} />
         <Route path="/reset-password" component={ForgotPassword} />
         <Route path="/register" component={MainForm} />
-        <Route path="/test" component={test} />
+        {/* face id  */}
         <Route path="/loginFace" component={LoginFace} />
         <Route path="/reset-password-Face" component={ForgotPasswordFace} />
 
         {/* Routes du dashboard (protégées) */}
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/dashboard-admin"
           render={() => (
             <DashboardAdminWrapper>
@@ -45,6 +49,42 @@ const Router = () => {
                 <AppRoutes />
               </MainLayout>
             </DashboardAdminWrapper>
+          )}
+        /> */}
+        <PrivateRoute
+          path="/dashboard-admin"
+          allowedRoles={["admin"]}
+          redirectTo="/login"
+          render={() => (
+            <DashboardAdminWrapper>
+              <MainLayout>
+                <AppRoutes />
+              </MainLayout>
+            </DashboardAdminWrapper>
+          )}
+        />
+
+        {/* Routes du dashboard élève (protégées) */}
+        {/* <PrivateRoute
+          path="/dashboard-student"
+          render={() => (
+            <DashboardStudentWrapper>
+              <StudentLayout>
+                <StudentRoutes />
+              </StudentLayout>
+            </DashboardStudentWrapper>
+          )}
+        /> */}
+        <PrivateRoute
+          path="/dashboard-student"
+          allowedRoles={["student"]}
+          redirectTo="/loginFace"
+          render={() => (
+            <DashboardStudentWrapper>
+              <StudentLayout>
+                <StudentRoutes />
+              </StudentLayout>
+            </DashboardStudentWrapper>
           )}
         />
 
@@ -58,7 +98,9 @@ const Router = () => {
                   key={routeItem.component}
                   path={routeItem.path}
                   exact={routeItem.exact}
-                  component={lazy(() => import(`../pages/${routeItem.component}`))}
+                  component={lazy(
+                    () => import(`../pages/${routeItem.component}`)
+                  )}
                 />
               ))}
             </Switch>
@@ -71,8 +113,3 @@ const Router = () => {
 };
 
 export default Router;
-
-
-
-
-

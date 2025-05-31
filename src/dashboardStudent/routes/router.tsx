@@ -1,54 +1,68 @@
-import { Suspense, lazy } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import paths, { rootPaths } from './paths';
-import PageLoader from '../components/loading/PageLoader';
-import Splash from '../components/loading/Splash';
-import MainLayout from '../layouts/main-layout';
-import Error404 from '../pages/errors/Error404';
-import Sales from '../pages/home/Sales';
-import Teachers from '../pages/enseignants/Teachers';
-import Students from '../pages/élèves/Students';
-import Admins from '../pages/admins/Admins';
-import Reclamations from '../pages/réclamations/reclamation';
+import { lazy } from "react";
+import { Switch, Route } from "react-router-dom";
+import paths from "./paths";
+import Error404 from "../pages/errors/Error404";
+
+const Sales = lazy(() => import("../pages/home/matières"));
+const Teachers = lazy(() => import("../pages/enseignants/Teachers"));
+const Students = lazy(() => import("../pages/élèves/Students"));
+const Admins = lazy(() => import("../pages/admins/Admins"));
+const Reclamations = lazy(() => import("../pages/réclamations/reclamation"));
 
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<Splash />}>
-      <Switch>
-        <Route path={rootPaths.homeRoot}>
-          <MainLayout>
-            <Suspense fallback={<PageLoader />}>
-              <Switch>
-                <Route exact path={paths.home} component={Sales} />
-                <Route exact path={paths.teachers} component={Teachers} />
-                <Route exact path={paths.students} component={Students} />
-                <Route exact path={paths.admins} component={Admins} />
-                <Route exact path={paths.complaints} component={Reclamations} />
-                <Route exact path={paths[404]} component={Error404} />
-              </Switch>
-            </Suspense>
-          </MainLayout>
-        </Route>
-        <Route path="*" component={Error404} />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route exact path={paths.home} component={Sales} />
+      <Route exact path={paths.teachers} component={Teachers} />
+      <Route exact path={paths.students} component={Students} />
+      <Route exact path={paths.admins} component={Admins} />
+      <Route exact path={paths.complaints} component={Reclamations} />
+      <Route exact path={paths[404]} component={Error404} />
+      <Route path="*" component={Error404} />
+    </Switch>
   );
 };
 
 export default AppRoutes;
 
+// import { Suspense, lazy } from 'react';
+// import { Switch, Route } from 'react-router-dom';
+// import paths, { rootPaths } from './paths';
+// import PageLoader from '../components/loading/PageLoader';
+// import Splash from '../components/loading/Splash';
+// import MainLayout from '../layouts/main-layout';
+// import Error404 from '../pages/errors/Error404';
+// import Sales from '../pages/home/Sales';
+// import Teachers from '../pages/enseignants/Teachers';
+// import Students from '../pages/élèves/Students';
+// import Admins from '../pages/admins/Admins';
+// import Reclamations from '../pages/réclamations/reclamation';
 
+// const AppRoutes = () => {
+//   return (
+//     <Suspense fallback={<Splash />}>
+//       <Switch>
+//         <Route path={rootPaths.homeRoot}>
+//           <MainLayout>
+//             <Suspense fallback={<PageLoader />}>
+//               <Switch>
+//                 <Route exact path={paths.home} component={Sales} />
+//                 <Route exact path={paths.teachers} component={Teachers} />
+//                 <Route exact path={paths.students} component={Students} />
+//                 <Route exact path={paths.admins} component={Admins} />
+//                 <Route exact path={paths.complaints} component={Reclamations} />
+//                 <Route exact path={paths[404]} component={Error404} />
+//               </Switch>
+//             </Suspense>
+//           </MainLayout>
+//         </Route>
+//         <Route path="*" component={Error404} />
+//       </Switch>
+//     </Suspense>
+//   );
+// };
 
-
-
-
-
-
-
-
-
-
-
+// export default AppRoutes;
 
 //origine
 // import { Suspense, lazy } from 'react';

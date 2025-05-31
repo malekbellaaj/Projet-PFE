@@ -88,7 +88,7 @@ const Topbar = ({ handleDrawerToggle }: TopbarProps): ReactElement => {
           </Typography>
           <TextField
             variant="outlined"
-            placeholder="Search..."
+            placeholder="Rechercher..."
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end" sx={{ width: 24, height: 24 }}>

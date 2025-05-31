@@ -165,7 +165,7 @@ const TopSellingProduct = (): ReactElement => {
         </Typography>
         <TextField
           variant="filled"
-          placeholder="Search..."
+          placeholder="Rechercher..."
           id="search-input"
           name="table-search-input"
           onChange={handleChange}

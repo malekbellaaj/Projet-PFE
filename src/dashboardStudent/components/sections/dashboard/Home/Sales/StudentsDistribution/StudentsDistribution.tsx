@@ -1,39 +1,77 @@
-import { ReactElement, useMemo, useRef, useState } from 'react';
-import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material';
+import { ReactElement, useMemo, useRef, useState, useEffect } from 'react';
+import { Box, Button, Divider, Stack, Typography, useTheme, CircularProgress } from '@mui/material';
 import EChartsReactCore from 'echarts-for-react/lib/core';
-import { PieDataItemOption } from 'echarts/types/src/chart/pie/PieSeries.js';
+// import { PieDataItemOption } from 'echarts/types/src/chart/pie/PieSeries.js';
 import StudentsDistributionChart from './StudentsDistributionChart';
+import axios from 'axios';
+
+// Interface for the distribution data
+interface DistributionData {
+  name: string;
+  value: number;
+}
 
 const StudentsDistribution = (): ReactElement => {
+  // Hook to access MUI theme
   const theme = useTheme();
 
-  // Données d'exemple : répartition des 100 élèves
-  const seriesData: PieDataItemOption[] = [
-    { value: 60, name: 'Normaux' }, // 60%
-    { value: 15, name: 'Sourd-muet' }, // 15%
-    { value: 10, name: 'Aveugle' }, // 10%
-    { value: 15, name: 'Hyperactif' }, // 15%
-  ];
+  // State for the distribution data
+  const [seriesData, setSeriesData] = useState<DistributionData[]>([]);
+  // State for loading status
+  const [loading, setLoading] = useState(true);
+  // State for errors
+  const [error, setError] = useState<string | null>(null);
 
-  // Données de la légende
+  // Legend data for the chart
   const legendData = [
     { name: 'Normaux', icon: 'circle' },
-    { name: 'Sourd-muet', icon: 'circle' },
-    { name: 'Aveugle', icon: 'circle' },
     { name: 'Hyperactif', icon: 'circle' },
+    { name: 'Autiste', icon: 'circle' },
+    { name: 'Aveugle', icon: 'circle' },
+    { name: 'Sourd-muet', icon: 'circle' },
   ];
 
-  // Couleurs pour chaque catégorie
+  // Colors for each category
   const pieChartColors = [
     theme.palette.primary.main,
     theme.palette.secondary.main,
     theme.palette.info.main,
     theme.palette.error.main,
+    theme.palette.warning.main, // Added for Autiste
   ];
 
+  // Reference for the ECharts instance
   const chartRef = useRef<EChartsReactCore | null>(null);
 
-  // Fonction pour basculer la sélection dans la légende
+  // Fetch distribution data from the backend
+  useEffect(() => {
+    const fetchDistribution = async () => {
+      try {
+        // Retrieve authentication token
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("Aucun token d'authentification trouvé.");
+        }
+
+        // Make GET request to the distribution endpoint
+        const response = await axios.get("http://localhost:5000/api/students/distribution", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        // Update series data with response
+        setSeriesData(response.data);
+        setLoading(false);
+      } catch (err) {
+        // Handle errors
+        const errorMessage = err instanceof Error ? err.message : "Erreur lors du chargement de la répartition.";
+        setError(errorMessage);
+        setLoading(false);
+      }
+    };
+    fetchDistribution();
+  }, []);
+
+  // Function to toggle legend selection
   const onChartLegendSelectChanged = (name: string) => {
     if (chartRef.current) {
       const instance = chartRef.current.getEchartsInstance();
@@ -44,15 +82,16 @@ const StudentsDistribution = (): ReactElement => {
     }
   };
 
-  // État pour activer/désactiver les catégories
+  // State to track enabled/disabled categories
   const [studentType, setStudentType] = useState<any>({
     Normaux: false,
-    'Sourd-muet': false,
-    Aveugle: false,
     Hyperactif: false,
+    Autiste: false,
+    Aveugle: false,
+    'Sourd-muet': false,
   });
 
-  // Fonction pour basculer l'état d'une catégorie
+  // Function to toggle a category’s state
   const toggleClicked = (name: string) => {
     setStudentType((prevState: any) => ({
       ...prevState,
@@ -60,12 +99,31 @@ const StudentsDistribution = (): ReactElement => {
     }));
   };
 
-  // Calcul du total des élèves
+  // Calculate total number of students
   const totalStudents = useMemo(
     () => seriesData.reduce((acc: number, next: any) => acc + next.value, 0),
-    [],
+    [seriesData],
   );
 
+  // Display loading state
+  if (loading) {
+    return (
+      <Stack direction="row" justifyContent="center" alignItems="center" sx={{ py: 5 }}>
+        <CircularProgress />
+      </Stack>
+    );
+  }
+
+  // Display error state
+  if (error) {
+    return (
+      <Stack direction="row" justifyContent="center" alignItems="center" sx={{ py: 5 }}>
+        <Typography color="error">{error}</Typography>
+      </Stack>
+    );
+  }
+
+  // Main render
   return (
     <Box
       sx={{
@@ -133,7 +191,9 @@ const StudentsDistribution = (): ReactElement => {
                     {dataItem.name}
                   </Typography>
                   <Typography variant="body1" color="text.primary">
-                    {((parseInt(`${dataItem.value}`) / totalStudents) * 100).toFixed(0)}%
+                    {totalStudents > 0
+                      ? ((parseInt(`${dataItem.value}`) / totalStudents) * 100).toFixed(0)
+                      : 0}%
                   </Typography>
                 </Stack>
               </Button>
@@ -158,29 +218,40 @@ export default StudentsDistribution;
 
 
 
+
+
+
+
+
+
+
+
 // import { ReactElement, useMemo, useRef, useState } from 'react';
 // import { Box, Button, Divider, Stack, Typography, useTheme } from '@mui/material';
 // import EChartsReactCore from 'echarts-for-react/lib/core';
 // import { PieDataItemOption } from 'echarts/types/src/chart/pie/PieSeries.js';
-// import WebsiteVisitorsChart from './WebsiteVisitorsChart';
+// import StudentsDistributionChart from './StudentsDistributionChart';
 
-// const WebsiteVisitors = (): ReactElement => {
+// const StudentsDistribution = (): ReactElement => {
 //   const theme = useTheme();
 
+//   // Données d'exemple : répartition des 100 élèves
 //   const seriesData: PieDataItemOption[] = [
-//     { value: 6840, name: 'Direct' },
-//     { value: 3960, name: 'Organic' },
-//     { value: 2160, name: 'Paid' },
-//     { value: 5040, name: 'Social' },
+//     { value: 60, name: 'Normaux' }, // 60%
+//     { value: 15, name: 'Sourd-muet' }, // 15%
+//     { value: 10, name: 'Aveugle' }, // 10%
+//     { value: 15, name: 'Hyperactif' }, // 15%
 //   ];
 
+//   // Données de la légende
 //   const legendData = [
-//     { name: 'Direct', icon: 'circle' },
-//     { name: 'Organic', icon: 'circle' },
-//     { name: 'Paid', icon: 'circle' },
-//     { name: 'Social', icon: 'circle' },
+//     { name: 'Normaux', icon: 'circle' },
+//     { name: 'Sourd-muet', icon: 'circle' },
+//     { name: 'Aveugle', icon: 'circle' },
+//     { name: 'Hyperactif', icon: 'circle' },
 //   ];
 
+//   // Couleurs pour chaque catégorie
 //   const pieChartColors = [
 //     theme.palette.primary.main,
 //     theme.palette.secondary.main,
@@ -189,6 +260,8 @@ export default StudentsDistribution;
 //   ];
 
 //   const chartRef = useRef<EChartsReactCore | null>(null);
+
+//   // Fonction pour basculer la sélection dans la légende
 //   const onChartLegendSelectChanged = (name: string) => {
 //     if (chartRef.current) {
 //       const instance = chartRef.current.getEchartsInstance();
@@ -198,20 +271,25 @@ export default StudentsDistribution;
 //       });
 //     }
 //   };
-//   const [visitorType, setVisitorType] = useState<any>({
-//     Direct: false,
-//     Organic: false,
-//     Paid: false,
-//     Social: false,
+
+//   // État pour activer/désactiver les catégories
+//   const [studentType, setStudentType] = useState<any>({
+//     Normaux: false,
+//     'Sourd-muet': false,
+//     Aveugle: false,
+//     Hyperactif: false,
 //   });
 
+//   // Fonction pour basculer l'état d'une catégorie
 //   const toggleClicked = (name: string) => {
-//     setVisitorType((prevState: any) => ({
+//     setStudentType((prevState: any) => ({
 //       ...prevState,
 //       [name]: !prevState[name],
 //     }));
 //   };
-//   const totalVisitors = useMemo(
+
+//   // Calcul du total des élèves
+//   const totalStudents = useMemo(
 //     () => seriesData.reduce((acc: number, next: any) => acc + next.value, 0),
 //     [],
 //   );
@@ -226,11 +304,11 @@ export default StudentsDistribution;
 //       }}
 //     >
 //       <Typography variant="subtitle1" color="text.primary" p={2.5}>
-//         Website Visitors
+//         Répartition des Élèves
 //       </Typography>
 //       <Stack direction={{ xs: 'column', sm: 'row', md: 'column' }}>
 //         <Stack direction="row" justifyContent="center" flex={'1 1 0%'}>
-//           <WebsiteVisitorsChart
+//           <StudentsDistributionChart
 //             chartRef={chartRef}
 //             seriesData={seriesData}
 //             colors={pieChartColors}
@@ -264,7 +342,7 @@ export default StudentsDistribution;
 //                   justifyContent: 'flex-start',
 //                   p: 0,
 //                   borderRadius: 1,
-//                   opacity: visitorType[`${dataItem.name}`] ? 0.5 : 1,
+//                   opacity: studentType[`${dataItem.name}`] ? 0.5 : 1,
 //                 }}
 //                 disableRipple
 //               >
@@ -273,7 +351,7 @@ export default StudentsDistribution;
 //                     sx={{
 //                       width: 10,
 //                       height: 10,
-//                       bgcolor: visitorType[`${dataItem.name}`]
+//                       bgcolor: studentType[`${dataItem.name}`]
 //                         ? 'action.disabled'
 //                         : pieChartColors[index],
 //                       borderRadius: 400,
@@ -283,7 +361,7 @@ export default StudentsDistribution;
 //                     {dataItem.name}
 //                   </Typography>
 //                   <Typography variant="body1" color="text.primary">
-//                     {((parseInt(`${dataItem.value}`) / totalVisitors) * 100).toFixed(0)}%
+//                     {((parseInt(`${dataItem.value}`) / totalStudents) * 100).toFixed(0)}%
 //                   </Typography>
 //                 </Stack>
 //               </Button>
@@ -294,4 +372,12 @@ export default StudentsDistribution;
 //   );
 // };
 
-// export default WebsiteVisitors;
+// export default StudentsDistribution;
+
+
+
+
+
+
+
+

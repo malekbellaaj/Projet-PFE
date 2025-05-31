@@ -1,8 +1,8 @@
 import { ReactElement } from 'react';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { Link as Nav } from 'react-router-dom';
-import logo from 'assets/logo/altus_logo_SB.png';
-import error404 from 'assets/404/404.jpg';
+import logo from '../../assets/logo/altus_logo_SB.png';
+import error404 from '../../assets/404/404.jpg';
 import Image from './../../components/base/Image';
 
 const Error404 = (): ReactElement => {
