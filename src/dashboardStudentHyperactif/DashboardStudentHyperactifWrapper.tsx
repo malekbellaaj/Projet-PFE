@@ -1,7 +1,7 @@
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { PropsWithChildren } from "react";
-import { theme } from "../dashboardStudent/theme/theme"; 
-import BreakpointsProvider from "../dashboardStudent/providers/BreakpointsProvider"; 
+import { theme } from "../dashboardStudentHyperactif/theme/theme"; 
+import BreakpointsProvider from "./providers/BreakpointsProvider"; 
 
 const DashboardStudentWrapper = ({ children }: PropsWithChildren) => (
   <ThemeProvider theme={theme}>

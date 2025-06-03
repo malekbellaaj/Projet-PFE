@@ -1,5 +1,5 @@
 export const rootPaths = {
-  homeRoot: "/dashboard-student",
+  homeRoot: "/dashboard-student-hyperactif",
   pagesRoot: "pages",
   applicationsRoot: "applications",
   authRoot: "authentication",

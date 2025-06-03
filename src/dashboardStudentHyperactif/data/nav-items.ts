@@ -10,35 +10,35 @@ export interface NavItem {
 const navItems: NavItem[] = [
   {
     title: "Accueil",
-    path: "/dashboard-student",
+    path: "/dashboard-student-hyperactif",
     icon: "ion:home",
     active: true,
     collapsible: false,
   },
   {
     title: "Mes matières",
-    path: "/dashboard-student/subjects",
+    path: "/dashboard-student-hyperactif/subjects",
     icon: "ic:outline-menu-book",
     active: false,
     collapsible: true,
     sublist: [
       {
         title: "عربية",
-        path: "/dashboard-student/subjects/3", // Utilise l'ID de mockData.ts
+        path: "/dashboard-student-hyperactif/subjects/3", // Utilise l'ID de mockData.ts
         icon: "icon-park-outline:translate",
         active: false,
         collapsible: false,
       },
       {
         title: "Français",
-        path: "/dashboard-student/subjects/1", // Utilise l'ID de mockData.ts
+        path: "/dashboard-student-hyperactif/subjects/1", // Utilise l'ID de mockData.ts
         icon: "tabler:language",
         active: false,
         collapsible: false,
       },
       {
         title: "English",
-        path: "/dashboard-student/subjects/2", // Utilise l'ID de mockData.ts
+        path: "/dashboard-student-hyperactif/subjects/2", // Utilise l'ID de mockData.ts
         icon: "fa6-solid:language",
         active: false,
         collapsible: false,
@@ -47,14 +47,14 @@ const navItems: NavItem[] = [
   },
   {
     title: "Mes devoirs",
-    path: "/dashboard-student/devoirs",
+    path: "/dashboard-student-hyperactif/devoirs",
     icon: "mdi:clipboard-text",
     active: false,
     collapsible: false,
   },
   {
     title: "Discussions",
-    path: "/dashboard-student/discussions",
+    path: "/dashboard-student-hyperactif/discussions",
     icon: "mdi:chat",
     active: false,
     collapsible: false,

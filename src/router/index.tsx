@@ -22,6 +22,10 @@ import ForgotPasswordFace from "../users/Connection/FaceConnection/forget passew
 import DashboardStudentWrapper from "../dashboardStudent/DashboardStudentWrapper";
 import StudentRoutes from "../dashboardStudent/routes/router";
 import StudentLayout from "../dashboardStudent/layouts/main-layout";
+// dashboard élèveHyperactif :
+import DashboardStudentHyperactifWrapper from "../dashboardStudentHyperactif/DashboardStudentHyperactifWrapper";
+import StudentRoutesHyperactif from "../dashboardStudentHyperactif/routes/router";
+import StudentLayoutHyperactif from "../dashboardStudentHyperactif/layouts/main-layout";
 
 const Router = () => {
   return (
@@ -41,16 +45,6 @@ const Router = () => {
         <Route path="/reset-password-Face" component={ForgotPasswordFace} />
 
         {/* Routes du dashboard (protégées) */}
-        {/* <PrivateRoute
-          path="/dashboard-admin"
-          render={() => (
-            <DashboardAdminWrapper>
-              <MainLayout>
-                <AppRoutes />
-              </MainLayout>
-            </DashboardAdminWrapper>
-          )}
-        /> */}
         <PrivateRoute
           path="/dashboard-admin"
           allowedRoles={["admin"]}
@@ -65,16 +59,6 @@ const Router = () => {
         />
 
         {/* Routes du dashboard élève (protégées) */}
-        {/* <PrivateRoute
-          path="/dashboard-student"
-          render={() => (
-            <DashboardStudentWrapper>
-              <StudentLayout>
-                <StudentRoutes />
-              </StudentLayout>
-            </DashboardStudentWrapper>
-          )}
-        /> */}
         <PrivateRoute
           path="/dashboard-student"
           allowedRoles={["student"]}
@@ -85,6 +69,20 @@ const Router = () => {
                 <StudentRoutes />
               </StudentLayout>
             </DashboardStudentWrapper>
+          )}
+        />
+        {/* Routes du dashboard élèveHyperactif (protégées) */}
+        <PrivateRoute
+          path="/dashboard-student-hyperactif"
+          allowedRoles={["student"]} 
+          requiredSituation="hyperactif" 
+          redirectTo="/loginFace" 
+          render={() => (
+            <DashboardStudentHyperactifWrapper>
+              <StudentLayoutHyperactif>
+                <StudentRoutesHyperactif />
+              </StudentLayoutHyperactif>
+            </DashboardStudentHyperactifWrapper>
           )}
         />
 
