@@ -26,6 +26,10 @@ import StudentLayout from "../dashboardStudent/layouts/main-layout";
 import DashboardStudentHyperactifWrapper from "../dashboardStudentHyperactif/DashboardStudentHyperactifWrapper";
 import StudentRoutesHyperactif from "../dashboardStudentHyperactif/routes/router";
 import StudentLayoutHyperactif from "../dashboardStudentHyperactif/layouts/main-layout";
+// dashboard enseignant :
+import DashboardTeacherWrapper from "../dashboardTeacher/DashboardTeacherWrapper"; 
+import TeacherRoutes from "../dashboardTeacher/routes/router"; 
+import TeacherLayout from "../dashboardTeacher/layouts/main-layout"; 
 
 const Router = () => {
   return (
@@ -86,6 +90,19 @@ const Router = () => {
           )}
         />
 
+          {/* Routes du dashboard enseignant (protégées) */}
+                  <PrivateRoute
+                    path="/dashboard-teacher"
+                    allowedRoles={["teacher"]}
+                    redirectTo="/login"
+                    render={() => (
+                      <DashboardTeacherWrapper>
+                        <TeacherLayout>
+                          <TeacherRoutes />
+                        </TeacherLayout>
+                      </DashboardTeacherWrapper>
+                    )}
+                  />
         {/* Route principale avec Header/Footer */}
         <Route path="/">
           <>

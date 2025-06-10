@@ -38,6 +38,32 @@ Compatible avec Google Lighthouse (perf/SEO/accessibilité)
 
 
 
+// code pour page vide 
+
+import React from 'react';
+import { Typography, Box, Container } from '@mui/material';
+
+const Hello: React.FC = () => {
+  return (
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          textAlign: 'center',
+        }}
+      >
+        <Typography variant="h4" component="div" fontWeight="bold" color="primary">
+          Bonjour !
+        </Typography>
+      </Box>
+    </Container>
+  );
+};
+
+export default Hello;
 
 
 
